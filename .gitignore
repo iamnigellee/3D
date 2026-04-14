@@ -1,0 +1,22 @@
+# 输出目录
+output/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# 敏感信息 - 不要提交包含真实API密钥的配置
+# config/api.yaml 中的 api_key 请使用环境变量或本地覆盖
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

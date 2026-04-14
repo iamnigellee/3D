@@ -1,0 +1,16 @@
+# 3D生成API配置
+# 请根据实际API信息修改以下配置
+
+api_url: "https://your-api-endpoint.com/v1/generate3d"
+api_key: ""  # 如需鉴权，填入API密钥
+timeout: 120  # 请求超时（秒）
+output_format: "glb"
+
+# 请求参数
+params:
+  # 模型质量：draft（快速）/ standard（标准）/ high（高质量）
+  quality: "standard"
+  # 输出网格目标面数（0=不限制）
+  target_faces: 0
+  # 是否生成纹理
+  with_texture: true

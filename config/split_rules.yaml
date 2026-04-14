@@ -1,0 +1,90 @@
+# 拆件规则配置
+
+# 品类定义
+categories:
+  figure:  # 公仔手办
+    description: "标准公仔手办拆件方案"
+    parts:
+      head:
+        method: "bisect"           # 切割方式：bisect(平面切割) / bbox(包围盒) / auto(自动识别)
+        plane_axis: "Z"            # 切割平面法线轴
+        plane_position_ratio: 0.72 # 切割位置（模型高度百分比）
+        keep: "upper"              # 保留上半部分
+        joint:
+          type: "cylinder"         # 连接方式：cylinder(圆柱榫) / ball(球榫)
+          diameter: 3.0            # 榫径 mm
+          depth: 5.0               # 榫深 mm
+          tolerance: 0.2           # 公差 mm
+
+      body:
+        method: "remainder"        # 切割完其他部件后的剩余部分
+        joint:
+          type: "cylinder"
+          diameter: 3.0
+          depth: 5.0
+          tolerance: 0.2
+
+      arm_left:
+        method: "bisect"
+        detect_by: "symmetry"      # 利用对称性，只需定义一侧
+        side: "left"
+        plane_axis: "X"
+        plane_position_ratio: 0.25 # 从左侧25%处切割（肩部）
+        keep: "left"
+        joint:
+          type: "ball"
+          diameter: 4.0
+          tolerance: 0.2
+
+      arm_right:
+        method: "bisect"
+        detect_by: "symmetry"
+        side: "right"
+        plane_axis: "X"
+        plane_position_ratio: 0.75
+        keep: "right"
+        joint:
+          type: "ball"
+          diameter: 4.0
+          tolerance: 0.2
+
+      leg_left:
+        method: "bisect"
+        plane_axis: "Z"
+        plane_position_ratio: 0.38 # 髋关节位置
+        secondary_axis: "X"
+        secondary_ratio: 0.5       # 左右对半分
+        keep: "lower_left"
+        joint:
+          type: "cylinder"
+          diameter: 3.0
+          depth: 5.0
+          tolerance: 0.2
+
+      leg_right:
+        method: "bisect"
+        plane_axis: "Z"
+        plane_position_ratio: 0.38
+        secondary_axis: "X"
+        secondary_ratio: 0.5
+        keep: "lower_right"
+        joint:
+          type: "cylinder"
+          diameter: 3.0
+          depth: 5.0
+          tolerance: 0.2
+
+      base:
+        method: "generate"         # 自动生成底座
+        shape: "circle"            # circle / square / custom
+        diameter_margin: 1.2       # 底座直径 = 模型宽度 × 倍率
+        thickness: 3.0             # 底座厚度 mm
+        fillet_radius: 0.5         # 边缘倒角 mm
+
+# 全局设置
+global:
+  min_wall_thickness: 1.5  # 最小壁厚（mm），低于此值警告
+  overlap: 0.1             # 切割面重叠量（mm），避免缝隙
+  smooth_cuts: true        # 切割面是否平滑处理
+  export_format: "stl"     # 部件导出格式
+  scale_to_mm: true        # 确保单位为毫米
